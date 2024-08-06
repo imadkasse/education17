@@ -32,13 +32,13 @@ const NavBar: React.FC = () => {
   }, [darkMode]);
 
   return (
-    <header className="flex shadow-sm bg-white dark:bg-gray-900 text-black dark:text-white font-[sans-serif] min-h-[70px]">
+    <header className="flex shadow-sm bg-white dark:bg-gray-900 text-black dark:text-white font-[sans-serif] min-h-[70px] border-b border-black/40 dark:border-gray-500 ">
       <div
         className={`flex-1 transition-all duration-300 ${
           toggle ? "ml-[250px]" : "ml-[50px]"
         }`}
       >
-        <div className="flex items-center justify-between px-1 py-3">
+        <div className="flex items-center justify-between  px-1 py-3">
           <button
             id="toggleOpen"
             onClick={() => setToggle((prev) => !prev)}

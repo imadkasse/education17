@@ -16,7 +16,13 @@ type Data = {
 const dataNav: Data[] = [
   {
     id: 0,
-    href: "/dashborad", // تم تصحيح الرابط من "/dashborad" إلى "/dashboard"
+    href: "/schoolinfo", // تم تصحيح الرابط من "/dashborad" إلى "/dashboard"
+    title: "معلومات المؤسسة",
+    icon: <DashboardOutlined className="text-[#333] dark:text-gray-400" />,
+  },
+  {
+    id: 1,
+    href: "/", // تم تصحيح الرابط من "/dashborad" إلى "/dashboard"
     title: "معلومات المؤسسة",
     icon: <DashboardOutlined className="text-[#333] dark:text-gray-400" />,
   },
