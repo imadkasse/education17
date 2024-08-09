@@ -19,9 +19,9 @@ export default function RootLayout({
   const user: boolean = true;
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className && ``}>
         <ToggleProvider>
-          <main>
+          <main className="dark:bg-gray-900 ">
             <NavBar />
             <SideBar />
             {children}

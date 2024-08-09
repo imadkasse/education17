@@ -5,6 +5,7 @@ import { DashboardOutlined } from "@mui/icons-material";
 import Link from "next/link";
 import Image from "next/image";
 import { useToggle } from "../context/ToggleContext";
+import { usePathname, useRouter } from "next/navigation";
 
 type Data = {
   id: number;
@@ -30,6 +31,7 @@ const dataNav: Data[] = [
 
 const SideBar: React.FC = () => {
   const { toggle } = useToggle();
+  const pathname = usePathname();
 
   return (
     <nav
@@ -37,18 +39,27 @@ const SideBar: React.FC = () => {
         toggle ? "w-[250px]" : "w-[50px]"
       } border-r-2 border-black/40 dark:border-gray-500`}
     >
-      
-      <div className="overflow-auto py-6 h-full mt-6">
+      <div className="overflow-auto py-6 h-full mt-6  ">
         <ul className="space-y-1">
           {dataNav.map((link) => (
             <li key={link.id}>
-              <Link
-                href={link.href}
-                className={`text-[#333] dark:text-white hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 rounded px-2 py-3 transition-all`}
-              >
-                {link.icon}
-                {toggle && <span className="text-xl">{link.title}</span>}
-              </Link>
+              {link.href === pathname ? (
+                <Link
+                  href={link.href}
+                  className={`text-[#333] dark:text-[#3399ff]  hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between bg-gray-100 dark:bg-gray-800 rounded px-2 py-3 transition-all`}
+                >
+                  {link.icon}
+                  {toggle && <span className="text-xl">{link.title}</span>}
+                </Link>
+              ) : (
+                <Link
+                  href={link.href}
+                  className={`text-[#333] dark:text-white hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-800 rounded px-2 py-3 transition-all`}
+                >
+                  {link.icon}
+                  {toggle && <span className="text-xl">{link.title}</span>}
+                </Link>
+              )}
             </li>
           ))}
         </ul>

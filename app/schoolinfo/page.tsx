@@ -5,11 +5,24 @@ import Link from "next/link";
 import { ReactNode, useState } from "react";
 import SchoolInfo from "@/components/cardSchoolInfo/SchoolInfo";
 import BudgetBalances from "@/components/cardSchoolInfo/BudgetBalances";
+import { usePathname } from "next/navigation";
 
 // تعريف المكونات الممكنة
-const ComponentA = () => <div>Component A</div>;
-const ComponentB = () => <div>Component B</div>;
-const ComponentC = () => <div>Component C</div>;
+const ComponentA = () => (
+  <div className="p-6 rounded-lg  max-w-4xl mx-auto   text-gray-800 dark:text-gray-200">
+    <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+      مرحبا بك في تطبيقنا
+    </h1>
+    <p className="text-lg text-gray-600 dark:text-gray-300">
+      يهدف تطبيقنا إلى تسهيل تسيير المصالح الاقتصادية للمؤسسات التربوية من خلال
+      تقديم أدوات وتقارير متكاملة تدعم الإدارة المالية الفعالة. سواء كنت مديراً
+      لمؤسسة تربوية أو مسؤولاً عن الشؤون المالية، يوفر لك تطبيقنا واجهة استخدام
+      بسيطة وفعالة لإدارة الميزانيات، وتتبع النفقات، وتخطيط الاستراتيجيات
+      المالية بما يتماشى مع احتياجات مؤسستك.
+    </p>
+  </div>
+);
+
 type Data = {
   id: number;
   title: string;
@@ -57,27 +70,16 @@ const DisplayComponent = ({ component }: { component: React.ReactNode }) => {
   return <div>{component}</div>;
 };
 const Page = () => {
-  // let currentComponent: React.ReactNode;
-  // // تحديد المكون الحالي بناءً على الشرط (أو قيمة أخرى)
-  // let componentToShow: string = "C"; // يمكنك تغييره بناءً على أي منطق آخر
-
-  // if (componentToShow === "A") {
-  //   currentComponent = <ComponentA />;
-  // } else if (componentToShow === "B") {
-  //   currentComponent = <ComponentB />;
-  // } else {
-  //   currentComponent = <ComponentC />;
-  // }
   const [currentComponent, setCurrentComponent] = useState<ReactNode>(
-    <SchoolInfo />
+    <ComponentA />
   );
   const { toggle } = useToggle();
-
+  const pathname = usePathname();
   return (
     <div
       className={` transition-all duration-300 ${
         toggle ? "ml-[250px]" : "ml-[50px]"
-      } flex flex-col justify-center items-center    p-4 dark:bg-slate-900 dark:text-white`}
+      } flex flex-col justify-center items-center     p-4  dark:text-white`}
       dir="rtl"
     >
       {/* <DisplayComponent component={currentComponent} /> */}
@@ -88,15 +90,29 @@ const Page = () => {
         >
           {dataNav.map((link) => {
             return (
-              <button
-                onClick={() => {
-                  setCurrentComponent(link.component);
-                }}
-                key={link.id}
-                className={`w-full text-[#333] dark:text-white hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-600 rounded px-2 py-3 transition-all`}
-              >
-                <span className="text-xl">{link.title}</span>
-              </button>
+              <div key={link.id}>
+                {link.component === currentComponent ? (
+                  <button
+                    onClick={() => {
+                      setCurrentComponent(link.component);
+                    }}
+                    key={link.id}
+                    className={`w-full  dark:text-[#3399ff] text-[#3399ff] hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between bg-gray-100 dark:bg-gray-600 rounded px-2 py-3 transition-all`}
+                  >
+                    <span className="text-xl">{link.title}</span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setCurrentComponent(link.component);
+                    }}
+                    key={link.id}
+                    className={`w-full text-[#333] dark:text-white hover:text-[#077bff] dark:hover:text-[#3399ff] text-[15px] flex gap-2 items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-600 rounded px-2 py-3 transition-all`}
+                  >
+                    <span className="text-xl">{link.title}</span>
+                  </button>
+                )}
+              </div>
             );
           })}
         </div>
